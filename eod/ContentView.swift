@@ -9,9 +9,18 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var birthDate = Date()
+
     var body: some View {
-        Text("Hello, World!")
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        VStack {
+            VStack {
+                DatePicker(selection: $birthDate, in: ...Date(), displayedComponents: .date, label: { Text("Date of birth") })
+                Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) { Text("Save") }
+            }.padding([.leading, .top, .trailing], 10)
+            
+            Divider()
+            
+        }
     }
 }
 
