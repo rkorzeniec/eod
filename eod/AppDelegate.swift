@@ -12,53 +12,50 @@ import SwiftUI
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
-    var popover: NSPopover!
-    var statusBarItem: NSStatusItem!
+    private var popover = NSPopover()
+    private let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
 
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        // Create the SwiftUI view that provides the window contents.
-        let contentView = ContentView()
         let expectancy = calculateLifeExpectancyDays()
-        let popover = NSPopover()
+        let configureView = ContentView()
+        
+        let menu = NSMenu()
+        menu.addItem(withTitle: "Configure", action: #selector(togglePopover), keyEquivalent: "C")
+        menu.addItem(.separator())
+        menu.addItem(withTitle: "Quit", action: #selector(terminate), keyEquivalent: "q")
+        
+        statusItem.menu = menu
+        statusItem.button?.title = "\(expectancy)"
+        statusItem.button?.action = #selector(togglePopover)
         
         popover.contentSize = NSSize(width: 200, height: 400)
         popover.behavior = .transient
-        popover.contentViewController = NSHostingController(rootView: contentView)
-        
-        self.popover = popover
-        self.statusBarItem = NSStatusBar.system.statusItem(withLength: CGFloat(NSStatusItem.variableLength))
-        
-        if let button = self.statusBarItem.button {
-            button.title = "\(expectancy)"
-            button.action = #selector(togglePopover(_:))
-        }
+        popover.contentViewController = NSHostingController(rootView: configureView)
     }
 
-    func applicationWillTerminate(_ aNotification: Notification) {
-        // Insert code here to tear down your application
-    }
+    func applicationWillTerminate(_ aNotification: Notification) { }
     
-    func calculateLifeExpectancyDays() -> Int {
-//        let date = Date()
-//        let cal = Calendar.current
-//        let record = lifeExpectancyParser.records[32] // 1992
-//        let expectancy_record_days = Int(record.value * 365)
-//        let current_days = ((cal.component(.year, from: date) - record.year) * 365) + cal.ordinality(of: .day, in: .year, for: date)!
-//
-//        return expectancy_record_days - current_days
-        return 1599
-    }
-    
-    // Create the status item
+    @objc func terminate() { NSApp.terminate(self) }
+
     @objc func togglePopover(_ sender: AnyObject?) {
-        if let button = self.statusBarItem.button {
+        if let button = self.statusItem.button {
             if self.popover.isShown {
                 self.popover.performClose(sender)
             } else {
                 self.popover.show(relativeTo: button.bounds, of: button, preferredEdge: NSRectEdge.minY)
-                self.popover.contentViewController?.view.window?.becomeKey()
             }
         }
     }
+    
+    func calculateLifeExpectancyDays() -> Int {
+    //        let date = Date()
+    //        let cal = Calendar.current
+    //        let record = lifeExpectancyParser.records[32] // 1992
+    //        let expectancy_record_days = Int(record.value * 365)
+    //        let current_days = ((cal.component(.year, from: date) - record.year) * 365) + cal.ordinality(of: .day, in: .year, for: date)!
+    //
+    //        return expectancy_record_days - current_days
+            return 1599
+        }
 }
