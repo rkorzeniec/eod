@@ -13,13 +13,7 @@ struct ContentView: View {
 
     var body: some View {
         VStack {
-            VStack {
-                DatePicker(selection: $birthDate, in: ...Date(), displayedComponents: .date, label: { Text("Date of birth") })
-                Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) { Text("Save") }
-            }.padding([.leading, .top, .trailing], 10)
-            
-            Divider()
-            
+            DatePicker(selection: $birthDate, in: ...Date(), displayedComponents: .date, label: { Text("Birth date") }).padding()
         }
     }
 }
