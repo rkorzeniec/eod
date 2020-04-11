@@ -10,11 +10,22 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var settings: Settings
+    
+    func updateExpectancy() {
+        if let appDelegate = NSApplication.shared.delegate as? AppDelegate {
+         appDelegate.updateLifeExpectancy()
+        }
+    }
 
     var body: some View {
         VStack {
-            DatePicker(selection: $settings.birthDate, in: ...Date(), displayedComponents: .date, label: { Text("Birth date") }).padding()
-        }
+            DatePicker(selection: $settings.birthDate, in: ...Date(), displayedComponents: .date) {
+                Text("Birth date")
+            }
+            Button(action: updateExpectancy) {
+                Text("Save")
+            }
+        }.padding()
     }
 }
 

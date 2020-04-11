@@ -40,6 +40,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationWillTerminate(_ aNotification: Notification) { }
     
+    func updateLifeExpectancy() {
+        let expectancy = calculateLifeExpectancyDays()
+        statusItem.button?.title = "\(expectancy)"
+    }
+    
     @objc private func terminate() { NSApp.terminate(self) }
 
     @objc private func togglePopover(_ sender: AnyObject?) {
