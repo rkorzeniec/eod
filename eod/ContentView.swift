@@ -9,18 +9,20 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var birthDate = Date()
+    @EnvironmentObject var settings: Settings
 
     var body: some View {
         VStack {
-            DatePicker(selection: $birthDate, in: ...Date(), displayedComponents: .date, label: { Text("Birth date") }).padding()
+            DatePicker(selection: $settings.birthDate, in: ...Date(), displayedComponents: .date, label: { Text("Birth date") }).padding()
         }
     }
 }
 
 
 struct ContentView_Previews: PreviewProvider {
+    static let settings = Settings()
+    
     static var previews: some View {
-        ContentView()
+        ContentView().environmentObject(settings)
     }
 }

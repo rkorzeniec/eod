@@ -14,6 +14,10 @@
 		BF227FEE24387A28004FE92C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF227FEC24387A28004FE92C /* Main.storyboard */; };
 		BF227FFA24387A28004FE92C /* eodTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF227FF924387A28004FE92C /* eodTests.swift */; };
 		BF22800524387A28004FE92C /* eodUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF22800424387A28004FE92C /* eodUITests.swift */; };
+		BF6A2B3A2439D50300224085 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6A2B392439D50300224085 /* Settings.swift */; };
+		BFF0AE0C2439EC58001151DA /* LifeExpectancyAtBirth.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF0AE092439EC58001151DA /* LifeExpectancyAtBirth.swift */; };
+		BFF0AE0D2439EC58001151DA /* LifeExpectancyAtBirthParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF0AE0A2439EC58001151DA /* LifeExpectancyAtBirthParser.swift */; };
+		BFF0AE0E2439EC58001151DA /* life_expectancy_at_birth_eu_total.xml in Resources */ = {isa = PBXBuildFile; fileRef = BFF0AE0B2439EC58001151DA /* life_expectancy_at_birth_eu_total.xml */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +52,10 @@
 		BF22800024387A28004FE92C /* eodUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = eodUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF22800424387A28004FE92C /* eodUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = eodUITests.swift; sourceTree = "<group>"; };
 		BF22800624387A28004FE92C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BF6A2B392439D50300224085 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		BFF0AE092439EC58001151DA /* LifeExpectancyAtBirth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LifeExpectancyAtBirth.swift; sourceTree = "<group>"; };
+		BFF0AE0A2439EC58001151DA /* LifeExpectancyAtBirthParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LifeExpectancyAtBirthParser.swift; sourceTree = "<group>"; };
+		BFF0AE0B2439EC58001151DA /* life_expectancy_at_birth_eu_total.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = life_expectancy_at_birth_eu_total.xml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,10 +108,14 @@
 			children = (
 				BF227FE324387A27004FE92C /* AppDelegate.swift */,
 				BF227FE524387A27004FE92C /* ContentView.swift */,
+				BF6A2B392439D50300224085 /* Settings.swift */,
+				BFF0AE092439EC58001151DA /* LifeExpectancyAtBirth.swift */,
+				BFF0AE0A2439EC58001151DA /* LifeExpectancyAtBirthParser.swift */,
 				BF227FE724387A28004FE92C /* Assets.xcassets */,
 				BF227FEC24387A28004FE92C /* Main.storyboard */,
 				BF227FEF24387A28004FE92C /* Info.plist */,
 				BF227FF024387A28004FE92C /* eod.entitlements */,
+				BFF0AE0B2439EC58001151DA /* life_expectancy_at_birth_eu_total.xml */,
 				BF227FE924387A28004FE92C /* Preview Content */,
 			);
 			path = eod;
@@ -242,6 +254,7 @@
 				BF227FEE24387A28004FE92C /* Main.storyboard in Resources */,
 				BF227FEB24387A28004FE92C /* Preview Assets.xcassets in Resources */,
 				BF227FE824387A28004FE92C /* Assets.xcassets in Resources */,
+				BFF0AE0E2439EC58001151DA /* life_expectancy_at_birth_eu_total.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -266,6 +279,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BFF0AE0C2439EC58001151DA /* LifeExpectancyAtBirth.swift in Sources */,
+				BFF0AE0D2439EC58001151DA /* LifeExpectancyAtBirthParser.swift in Sources */,
+				BF6A2B3A2439D50300224085 /* Settings.swift in Sources */,
 				BF227FE624387A27004FE92C /* ContentView.swift in Sources */,
 				BF227FE424387A27004FE92C /* AppDelegate.swift in Sources */,
 			);

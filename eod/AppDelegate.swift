@@ -14,14 +14,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     private var popover = NSPopover()
     private let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+    private let lifeExpectancyParser = LifeExpectancyAtBirthParser()
 
+    private var userSettings = Settings()
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        let expectancy = calculateLifeExpectancyDays()
-        let configureView = ContentView()
+        lifeExpectancyParser.parseXml()
         
+        let expectancy = calculateLifeExpectancyDays()
+        let configureView = ContentView().environmentObject(userSettings)
         let menu = NSMenu()
-        menu.addItem(withTitle: "Configure", action: #selector(togglePopover), keyEquivalent: "C")
+        
+        menu.addItem(withTitle: "Configure", action: #selector(togglePopover), keyEquivalent: "c")
         menu.addItem(.separator())
         menu.addItem(withTitle: "Quit", action: #selector(terminate), keyEquivalent: "q")
         
@@ -36,26 +40,32 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationWillTerminate(_ aNotification: Notification) { }
     
-    @objc func terminate() { NSApp.terminate(self) }
+    @objc private func terminate() { NSApp.terminate(self) }
 
-    @objc func togglePopover(_ sender: AnyObject?) {
-        if let button = self.statusItem.button {
-            if self.popover.isShown {
-                self.popover.performClose(sender)
-            } else {
-                self.popover.show(relativeTo: button.bounds, of: button, preferredEdge: NSRectEdge.minY)
-            }
-        }
+    @objc private func togglePopover(_ sender: AnyObject?) {
+        popover.isShown == true ? closePopover(sender) : showPopover(sender)
     }
     
-    func calculateLifeExpectancyDays() -> Int {
-    //        let date = Date()
-    //        let cal = Calendar.current
-    //        let record = lifeExpectancyParser.records[32] // 1992
-    //        let expectancy_record_days = Int(record.value * 365)
-    //        let current_days = ((cal.component(.year, from: date) - record.year) * 365) + cal.ordinality(of: .day, in: .year, for: date)!
-    //
-    //        return expectancy_record_days - current_days
-            return 1599
+    private func calculateLifeExpectancyDays() -> Int {
+        let date = Date()
+        let cal = Calendar.current
+        
+        let year = Calendar(identifier: .iso8601).component(.year, from: userSettings.birthDate)
+        let value = lifeExpectancyParser.records[year]!
+        let expectancy_record_days = Int(value * 365)
+        
+        let current_days = ((cal.component(.year, from: date) - year) * 365) + cal.ordinality(of: .day, in: .year, for: date)!
+        
+        return expectancy_record_days - current_days
+    }
+    
+    private func showPopover(_ sender: AnyObject?) {
+        if let button = statusItem.button {
+            popover.show(relativeTo: button.bounds, of: button, preferredEdge: .minY)
         }
+    }
+
+    private func closePopover(_ sender: AnyObject?) {
+        popover.performClose(sender)
+    }
 }
