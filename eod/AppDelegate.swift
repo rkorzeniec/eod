@@ -16,10 +16,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
     private let lifeExpectancyParser = LifeExpectancyAtBirthParser()
 
+    private let userDefaults = UserDefaults.standard
     private var userSettings = Settings()
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         lifeExpectancyParser.parseXml()
+        if let birthDate = userDefaults.object(forKey: "birthDate") as? Date {
+            userSettings.birthDate = birthDate
+        }
         
         let expectancy = calculateLifeExpectancyDays()
         let configureView = ContentView().environmentObject(userSettings)
@@ -43,6 +47,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func updateLifeExpectancy() {
         let expectancy = calculateLifeExpectancyDays()
         statusItem.button?.title = "\(expectancy)"
+        userDefaults.set(userSettings.birthDate, forKey: "birthDate")
     }
     
     @objc private func terminate() { NSApp.terminate(self) }

@@ -14,8 +14,4 @@ class Settings: ObservableObject {
     init() {
         birthDate = Date()
     }
-    
-    init(date: Date = Date()) {
-        birthDate = date
-    }
 }
