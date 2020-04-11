@@ -13,7 +13,7 @@ struct ContentView: View {
     
     func updateExpectancy() {
         if let appDelegate = NSApplication.shared.delegate as? AppDelegate {
-         appDelegate.updateLifeExpectancy()
+            appDelegate.updateLifeExpectancy()
         }
     }
 
@@ -22,9 +22,7 @@ struct ContentView: View {
             DatePicker(selection: $settings.birthDate, in: ...Date(), displayedComponents: .date) {
                 Text("Birth date")
             }
-            Button(action: updateExpectancy) {
-                Text("Save")
-            }
+            Button(action: updateExpectancy) { Text("Save") }
         }.padding()
     }
 }

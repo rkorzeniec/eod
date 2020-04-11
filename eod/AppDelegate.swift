@@ -21,9 +21,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         lifeExpectancyParser.parseXml()
-        if let birthDate = userDefaults.object(forKey: "birthDate") as? Date {
-            userSettings.birthDate = birthDate
-        }
+        updateUserSettings()
         
         let expectancy = calculateLifeExpectancyDays()
         let configureView = ContentView().environmentObject(userSettings)
@@ -56,17 +54,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         popover.isShown == true ? closePopover(sender) : showPopover(sender)
     }
     
+    private func updateUserSettings() {
+        if let birthDate = userDefaults.object(forKey: "birthDate") as? Date {
+            userSettings.birthDate = birthDate
+        }
+    }
+    
     private func calculateLifeExpectancyDays() -> Int {
-        let date = Date()
-        let cal = Calendar.current
+        let valueInSeconds = lifeExpectancyParser.records[userSettings.birthYear()]! * 365.25 * 24 * 3600
+        let expectancyDate = Date(timeInterval: TimeInterval(valueInSeconds), since: userSettings.birthDate)
         
-        let year = Calendar(identifier: .iso8601).component(.year, from: userSettings.birthDate)
-        let value = lifeExpectancyParser.records[year]!
-        let expectancy_record_days = Int(value * 365)
+        let calendar = Calendar.current
+        let date1 = calendar.startOfDay(for: Date())
+        let date2 = calendar.startOfDay(for: expectancyDate)
         
-        let current_days = ((cal.component(.year, from: date) - year) * 365) + cal.ordinality(of: .day, in: .year, for: date)!
-        
-        return expectancy_record_days - current_days
+        return calendar.dateComponents([.day], from: date1, to: date2).day!
     }
     
     private func showPopover(_ sender: AnyObject?) {

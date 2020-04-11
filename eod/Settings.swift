@@ -14,4 +14,8 @@ class Settings: ObservableObject {
     init() {
         birthDate = Date()
     }
+    
+    func birthYear() -> Int {
+        return Calendar(identifier: .iso8601).component(.year, from: birthDate)
+    }
 }
