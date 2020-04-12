@@ -12,12 +12,14 @@ import SwiftUI
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
-    private var popover = NSPopover()
     private let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
     private let lifeExpectancyParser = LifeExpectancyAtBirthParser()
-
     private let userDefaults = UserDefaults.standard
+    private let calendar = Calendar.current
+
+    private var popover = NSPopover()
     private var userSettings = Settings()
+    private var timer: Timer?
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         lifeExpectancyParser.parseXml()
@@ -38,11 +40,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         popover.contentSize = NSSize(width: 200, height: 400)
         popover.behavior = .transient
         popover.contentViewController = NSHostingController(rootView: configureView)
+        
+        setTimer()
     }
 
-    func applicationWillTerminate(_ aNotification: Notification) { }
+    func applicationWillTerminate(_ aNotification: Notification) {
+        timer?.invalidate()
+    }
     
-    func updateLifeExpectancy() {
+    @objc func updateLifeExpectancy() {
         let expectancy = calculateLifeExpectancyDays()
         statusItem.button?.title = "\(expectancy)"
         userDefaults.set(userSettings.birthDate, forKey: "birthDate")
@@ -64,11 +70,27 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let valueInSeconds = lifeExpectancyParser.records[userSettings.birthYear()]! * 365.25 * 24 * 3600
         let expectancyDate = Date(timeInterval: TimeInterval(valueInSeconds), since: userSettings.birthDate)
         
-        let calendar = Calendar.current
         let date1 = calendar.startOfDay(for: Date())
         let date2 = calendar.startOfDay(for: expectancyDate)
         
         return calendar.dateComponents([.day], from: date1, to: date2).day!
+    }
+    
+    private func setTimer() {
+        let tomorrow = calendar.date(byAdding: .day, value: 1, to: Date())!
+        let dayInSeconds = TimeInterval(24 * 3600)
+        
+        timer?.invalidate()
+        
+        timer = Timer(
+            fireAt: Calendar.current.startOfDay(for: tomorrow),
+            interval: dayInSeconds,
+            target: self,
+            selector: #selector(updateLifeExpectancy),
+            userInfo: nil,
+            repeats: true
+        )
+        RunLoop.main.add(timer!, forMode: .common)
     }
     
     private func showPopover(_ sender: AnyObject?) {
