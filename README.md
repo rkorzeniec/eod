@@ -31,7 +31,8 @@ Pull requests are welcomed, please follow these guidelines:
 1. Create a new Pull Request
 
 ## Donating
-If you enjoy using eod, you are free consider a small donation! 🙂
+If you enjoy using eod, you are free consider a small donation! 🙂  
+[Buy me a cup of coffee](https://paypal.me/rkorzeniec)
 
 ## Security Vulnerabilities
 
