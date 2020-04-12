@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		BF14B7D82442EF7D004A9248 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF14B7D72442EF7D004A9248 /* Assets.xcassets */; };
+		BF14B7DA24432AEA004A9248 /* SettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF14B7D924432AEA004A9248 /* SettingsTests.swift */; };
 		BF227FE424387A27004FE92C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF227FE324387A27004FE92C /* AppDelegate.swift */; };
 		BF227FE624387A27004FE92C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF227FE524387A27004FE92C /* ContentView.swift */; };
 		BF227FEB24387A28004FE92C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF227FEA24387A28004FE92C /* Preview Assets.xcassets */; };
@@ -38,6 +39,7 @@
 
 /* Begin PBXFileReference section */
 		BF14B7D72442EF7D004A9248 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		BF14B7D924432AEA004A9248 /* SettingsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTests.swift; sourceTree = "<group>"; };
 		BF227FE024387A27004FE92C /* eod.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = eod.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF227FE324387A27004FE92C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BF227FE524387A27004FE92C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 			children = (
 				BF227FF924387A28004FE92C /* eodTests.swift */,
 				BF227FFB24387A28004FE92C /* Info.plist */,
+				BF14B7D924432AEA004A9248 /* SettingsTests.swift */,
 			);
 			path = eodTests;
 			sourceTree = "<group>";
