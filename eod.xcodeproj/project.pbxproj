@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		BF14B7D62442EE18004A9248 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF14B7D52442EE18004A9248 /* Assets.xcassets */; };
+		BF14B7D82442EF7D004A9248 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF14B7D72442EF7D004A9248 /* Assets.xcassets */; };
 		BF227FE424387A27004FE92C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF227FE324387A27004FE92C /* AppDelegate.swift */; };
 		BF227FE624387A27004FE92C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF227FE524387A27004FE92C /* ContentView.swift */; };
 		BF227FEB24387A28004FE92C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF227FEA24387A28004FE92C /* Preview Assets.xcassets */; };
@@ -37,7 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		BF14B7D52442EE18004A9248 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../../../../../Downloads/AppIcons/Assets.xcassets; sourceTree = "<group>"; };
+		BF14B7D72442EF7D004A9248 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BF227FE024387A27004FE92C /* eod.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = eod.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF227FE324387A27004FE92C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BF227FE524387A27004FE92C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -110,8 +110,8 @@
 				BFF0AE0A2439EC58001151DA /* LifeExpectancyAtBirthParser.swift */,
 				BF227FEC24387A28004FE92C /* Main.storyboard */,
 				BF227FEF24387A28004FE92C /* Info.plist */,
+				BF14B7D72442EF7D004A9248 /* Assets.xcassets */,
 				BF227FF024387A28004FE92C /* eod.entitlements */,
-				BF14B7D52442EE18004A9248 /* Assets.xcassets */,
 				BFF0AE0B2439EC58001151DA /* life_expectancy_at_birth_eu_total.xml */,
 				BF227FE924387A28004FE92C /* Preview Content */,
 			);
@@ -250,7 +250,7 @@
 			files = (
 				BF227FEE24387A28004FE92C /* Main.storyboard in Resources */,
 				BF227FEB24387A28004FE92C /* Preview Assets.xcassets in Resources */,
-				BF14B7D62442EE18004A9248 /* Assets.xcassets in Resources */,
+				BF14B7D82442EF7D004A9248 /* Assets.xcassets in Resources */,
 				BFF0AE0E2439EC58001151DA /* life_expectancy_at_birth_eu_total.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
