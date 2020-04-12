@@ -1,13 +1,24 @@
 # eod
-<p align="center"><img src="eod/Assets.xcassets/AppIcon.appiconset/256.png?raw=true" width="150"></p>
+<p align="center"><img src="docs/images/icon.png?raw=true" width="150"></p>
 
 ## About
 End of days counter. A macOS menu bar app that counts days left based on your life expectancy, taking into account your gender, birth date and country.
 
 ## Installation
 1. Download and unzip the [latest release](https://github.com/rkorzeniec/eod/releases/latest/download/eod.zip).
-2. Drag the application to your Applications folder.
-3. Launch the app and you should be (hopefully) done. If you cannot open the application, please follow [these](https://support.apple.com/kb/PH25088?locale=en_US) instructions; as you might have to alleviate some security app restrictions. 
+1. Drag the application to your Applications folder.
+1. Launch the app and you should be (hopefully) done. If you cannot open the application, please follow [these](https://support.apple.com/kb/PH25088?locale=en_US) instructions; as you might have to alleviate some security app restrictions. 
+
+## Usage
+
+1. Launch the app
+1. Configure it; by setting your birthdate
+1. Save and enjoy. Let that number motivate you to make great things!
+<p align="center">
+  <img src="docs/images/menu.png?raw=true" width="500">
+  <br>
+  <img src="docs/images/config.png?raw=true" width="500">
+</p>
 
 ## Contributing
 
