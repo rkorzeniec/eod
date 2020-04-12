@@ -10,20 +10,27 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var settings: Settings
+
+    var body: some View {
+        VStack {
+            DatePicker(selection: $settings.birthDate, in: ...toDate, displayedComponents: .date) {
+                Text("Birth date")
+            }
+            Button(action: updateExpectancy) { Text("Save") }
+        }.padding()
+    }
+    
+    var toDate: Date {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd/mm/yyyy"
+        return formatter.date(from: "31/12/2017")!
+    }
+    
     
     func updateExpectancy() {
         if let appDelegate = NSApplication.shared.delegate as? AppDelegate {
             appDelegate.updateLifeExpectancy()
         }
-    }
-
-    var body: some View {
-        VStack {
-            DatePicker(selection: $settings.birthDate, in: ...Date(), displayedComponents: .date) {
-                Text("Birth date")
-            }
-            Button(action: updateExpectancy) { Text("Save") }
-        }.padding()
     }
 }
 
