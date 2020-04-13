@@ -9,7 +9,7 @@
 import Foundation
 
 class LifeExpectancyAtBirthParser: NSObject, XMLParserDelegate {
-    var records: [Int: Float] = [:]
+    var records: [Int: Double] = [:]
     
     func parseXml() {
         if let path = Bundle.main.url(forResource: "life_expectancy_at_birth_eu_total", withExtension: "xml") {
@@ -22,7 +22,7 @@ class LifeExpectancyAtBirthParser: NSObject, XMLParserDelegate {
     
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]) {
         if elementName == "record" {
-            records[Int(attributeDict["year"]!)!] = Float(attributeDict["value"]!)!
+            records[Int(attributeDict["year"]!)!] = Double(attributeDict["value"]!)!
         }
     }
 }
