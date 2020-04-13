@@ -15,7 +15,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
     private let lifeExpectancies = LifeExpectancies()
     private let userDefaults = UserDefaults.standard
-    private let calendar = Calendar.current
 
     private var popover = NSPopover()
     private var userSettings = Settings()
@@ -66,17 +65,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     private func calculateLifeExpectancyDays() -> Int {
-        let valueInSeconds = lifeExpectancies.expectancy(country: "EUU", year: String(userSettings.birthYear())) * 365.25 * 24 * 3600
-        let expectancyDate = Date(timeInterval: TimeInterval(valueInSeconds), since: userSettings.birthDate)
+        let birthYear = String(userSettings.birthYear())
+        let expectancy = lifeExpectancies.expectancy(country: userSettings.birthPlace, year: birthYear)
         
-        let date1 = calendar.startOfDay(for: Date())
-        let date2 = calendar.startOfDay(for: expectancyDate)
-        
-        return calendar.dateComponents([.day], from: date1, to: date2).day!
+        return LifeExpectancyCalculator(expectancy: expectancy, birthDate: userSettings.birthDate).days()
     }
     
     private func setTimer() {
-        let tomorrow = calendar.date(byAdding: .day, value: 1, to: Date())!
+        let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: Date())!
         let dayInSeconds = TimeInterval(24 * 3600)
         
         timer?.invalidate()
