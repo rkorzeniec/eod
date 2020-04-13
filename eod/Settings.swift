@@ -10,9 +10,13 @@ import Foundation
 
 class Settings: ObservableObject {
     @Published var birthDate: Date
+    @Published var birthPlace: String
+    @Published var gender: String
     
     init() {
         birthDate = Date()
+        birthPlace = "EUU"
+        gender = "male"
     }
     
     func birthYear() -> Int {
