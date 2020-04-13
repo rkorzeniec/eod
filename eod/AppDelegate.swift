@@ -13,7 +13,7 @@ import SwiftUI
 class AppDelegate: NSObject, NSApplicationDelegate {
 
     private let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
-    private let lifeExpectancyParser = LifeExpectancyAtBirthParser()
+    private let lifeExpectancies = LifeExpectancies()
     private let userDefaults = UserDefaults.standard
     private let calendar = Calendar.current
 
@@ -22,7 +22,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private var timer: Timer?
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        lifeExpectancyParser.parseXml()
         updateUserSettings()
         
         let expectancy = calculateLifeExpectancyDays()
@@ -67,7 +66,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     private func calculateLifeExpectancyDays() -> Int {
-        let valueInSeconds = lifeExpectancyParser.records[userSettings.birthYear()]! * 365.25 * 24 * 3600
+        let valueInSeconds = lifeExpectancies.expectancy(country: "EUU", year: String(userSettings.birthYear())) * 365.25 * 24 * 3600
         let expectancyDate = Date(timeInterval: TimeInterval(valueInSeconds), since: userSettings.birthDate)
         
         let date1 = calendar.startOfDay(for: Date())
