@@ -22,4 +22,8 @@ class Settings: ObservableObject {
     func birthYear() -> Int {
         return Calendar(identifier: .iso8601).component(.year, from: birthDate)
     }
+    
+    func genderName() -> String {
+        return gender == 0 ? "male" : "female"
+    }
 }
