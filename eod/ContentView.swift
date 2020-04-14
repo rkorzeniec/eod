@@ -21,6 +21,7 @@ struct ContentView: View {
             DatePicker(selection: $settings.birthDate, in: ...toDate, displayedComponents: .date) {
                 Text("Birth date")
             }
+            
             Button(action: updateExpectancy) { Text("Save") }
         }.padding()
     }
