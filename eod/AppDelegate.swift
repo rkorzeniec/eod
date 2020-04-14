@@ -65,8 +65,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     private func calculateLifeExpectancyDays() -> Int {
+        let birthPlace = userSettings.birthPlace
         let birthYear = String(userSettings.birthYear())
-        let expectancy = lifeExpectancies.expectancy(country: userSettings.birthPlace, year: birthYear)
+        let gender = userSettings.genderName()
+        let expectancy = lifeExpectancies.expectancy(country: birthPlace, year: birthYear, gender: gender)
         
         return LifeExpectancyCalculator(expectancy: expectancy, birthDate: userSettings.birthDate).days()
     }
