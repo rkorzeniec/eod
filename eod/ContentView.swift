@@ -13,6 +13,11 @@ struct ContentView: View {
 
     var body: some View {
         VStack {
+            Picker(selection: $settings.gender, label: Text("Gender:")) {
+                Text("Male").tag(0)
+                Text("Female").fixedSize().tag(1)
+            }.pickerStyle(RadioGroupPickerStyle())
+
             DatePicker(selection: $settings.birthDate, in: ...toDate, displayedComponents: .date) {
                 Text("Birth date")
             }
