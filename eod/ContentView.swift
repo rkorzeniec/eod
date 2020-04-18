@@ -10,12 +10,14 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var settings: Settings
+    var genders = ["Male", "Female"]
 
     var body: some View {
         VStack {
             Picker(selection: $settings.gender, label: Text("Gender:")) {
-                Text("Male").tag(0)
-                Text("Female").fixedSize().tag(1)
+                ForEach(0 ..< genders.count) {
+                    Text(self.genders[$0]).fixedSize()
+                }
             }.pickerStyle(RadioGroupPickerStyle())
 
             DatePicker(selection: $settings.birthDate, in: ...toDate, displayedComponents: .date) {
