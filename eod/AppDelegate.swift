@@ -47,7 +47,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @objc func updateLifeExpectancy() {
         let expectancy = calculateLifeExpectancyDays()
         statusItem.button?.title = "\(expectancy)"
+
         userDefaults.set(userSettings.birthDate, forKey: "birthDate")
+        userDefaults.set(userSettings.birthPlace, forKey: "birthPlace")
         userDefaults.set(userSettings.gender, forKey: "gender")
     }
     
@@ -60,6 +62,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private func updateUserSettings() {
         if let birthDate = userDefaults.object(forKey: "birthDate") as? Date {
             userSettings.birthDate = birthDate
+        }
+        
+        if let birthPlace = userDefaults.object(forKey: "birthPlace") as? Int {
+            userSettings.birthPlace = birthPlace
         }
         
         if let gender = userDefaults.object(forKey: "gender") as? Int {
