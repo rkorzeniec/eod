@@ -9,15 +9,9 @@
 import Foundation
 
 class Settings: ObservableObject {
-    @Published var birthDate: Date
-    @Published var birthPlace: Int
-    @Published var gender: Int
-    
-    init() {
-        birthDate = Date()
-        birthPlace = 76 // EU
-        gender = 0
-    }
+    @Published var birthDate: Date = Date()
+    @Published var birthPlace: Int = 76 // EU
+    @Published var gender: Int = 0
     
     func birthYear() -> Int {
         return Calendar(identifier: .iso8601).component(.year, from: birthDate)
