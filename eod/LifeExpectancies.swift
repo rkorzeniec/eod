@@ -9,8 +9,8 @@
 import Foundation
 import SwiftCSV
 
-    var countries: [String : String] = [:]
 class LifeExpectancies: ObservableObject {
+    @Published var countries: [String] = []
     
     private var csv: CSV?
     
@@ -23,7 +23,7 @@ class LifeExpectancies: ObservableObject {
         var value = 0.0
         do {
             try csv?.enumerateAsDict { dict in
-                guard dict["iso"] == iso, dict["gender"] == gender, !(dict[year]?.isEmpty ?? true) else { return }
+                guard dict["country"] == iso, dict["gender"] == gender, !(dict[year]?.isEmpty ?? true) else { return }
                 value = Double(dict[year]!)!
             }
         } catch { print("Something went wrong!") }
@@ -31,9 +31,18 @@ class LifeExpectancies: ObservableObject {
         return value
     }
     
+    func country(index: Int) -> String {
+        return countries[index]
+    }
+    
     private func retrieveCountries() {
         do {
-            try csv?.enumerateAsDict { dict in self.countries[dict["iso"]!] = dict["country"]! }
+            try csv?.enumerateAsDict { dict in
+                if !self.countries.contains(dict["country"]!) {
+                    self.countries.append(dict["country"]!)
+                }
+            }
         } catch { print("Something went wrong!") }
+        countries = self.countries.sorted()
     }
 }

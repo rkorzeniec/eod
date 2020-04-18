@@ -26,6 +26,12 @@ struct ContentView: View {
                 Text("Birth date:")
             }
             
+            Picker(selection: $settings.birthPlace, label: Text("Birth place:")) {
+                ForEach(0 ..< lifeExpectancies.countries.count) {
+                    Text(self.lifeExpectancies.countries[$0])
+                }
+            }
+            
             Button(action: updateExpectancy) { Text("Save") }
         }.padding()
     }
