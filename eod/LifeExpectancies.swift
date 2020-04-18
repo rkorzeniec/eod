@@ -4,6 +4,8 @@
 //
 //  Created by Robert Korzeniec on 13.04.20.
 //  Copyright © 2020 Robert Korzeniec. All rights reserved.
+//  Data for males: https://data.worldbank.org/indicator/SP.DYN.LE00.MA.IN
+//  Data for females: https://data.worldbank.org/indicator/SP.DYN.LE00.FE.IN
 //
 
 import Foundation
