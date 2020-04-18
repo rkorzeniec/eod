@@ -9,8 +9,8 @@
 import Foundation
 import SwiftCSV
 
-class LifeExpectancies {
     var countries: [String : String] = [:]
+class LifeExpectancies: ObservableObject {
     
     private var csv: CSV?
     

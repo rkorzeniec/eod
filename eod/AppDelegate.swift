@@ -24,7 +24,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         updateUserSettings()
         
         let expectancy = calculateLifeExpectancyDays()
-        let configureView = ContentView().environmentObject(userSettings)
+        let configureView = ContentView().environmentObject(userSettings).environmentObject(lifeExpectancies)
         let menu = NSMenu()
         
         menu.addItem(withTitle: "Configure", action: #selector(togglePopover), keyEquivalent: "c")

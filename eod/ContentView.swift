@@ -10,6 +10,8 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var settings: Settings
+    @EnvironmentObject var lifeExpectancies: LifeExpectancies
+    
     var genders = ["Male", "Female"]
 
     var body: some View {
