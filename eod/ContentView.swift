@@ -23,7 +23,7 @@ struct ContentView: View {
             }.pickerStyle(RadioGroupPickerStyle())
 
             DatePicker(selection: $settings.birthDate, in: ...toDate, displayedComponents: .date) {
-                Text("Birth date")
+                Text("Birth date:")
             }
             
             Button(action: updateExpectancy) { Text("Save") }
