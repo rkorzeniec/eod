@@ -33,10 +33,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         statusItem.menu = menu
         statusItem.button?.title = "\(expectancy)"
-        statusItem.button?.action = #selector(togglePopover)
         
         popover.contentSize = NSSize(width: 200, height: 400)
-        popover.behavior = .transient
         popover.contentViewController = NSHostingController(rootView: configureView)
         
         setTimer()
@@ -55,8 +53,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @objc private func terminate() { NSApp.terminate(self) }
 
-    @objc private func togglePopover(_ sender: AnyObject?) {
-        popover.isShown == true ? closePopover(sender) : showPopover(sender)
+    @objc func togglePopover() {
+        popover.isShown == true ? closePopover() : showPopover()
     }
     
     private func updateUserSettings() {
@@ -95,13 +93,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         RunLoop.main.add(timer!, forMode: .common)
     }
     
-    private func showPopover(_ sender: AnyObject?) {
+    private func showPopover() {
         if let button = statusItem.button {
             popover.show(relativeTo: button.bounds, of: button, preferredEdge: .minY)
         }
     }
 
-    private func closePopover(_ sender: AnyObject?) {
-        popover.performClose(sender)
+    private func closePopover() {
+        popover.close()
     }
 }
