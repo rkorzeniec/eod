@@ -6,7 +6,6 @@
 //  Copyright © 2020 Robert Korzeniec. All rights reserved.
 //
 
-import Cocoa
 import SwiftUI
 
 @NSApplicationMain
