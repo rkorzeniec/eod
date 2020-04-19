@@ -46,10 +46,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             let expectancy = self.calculateLifeExpectancyDays()
             self.statusItem.button?.title = "\(expectancy)"
         }
-
-        userDefaults.set(userSettings.birthDate, forKey: "birthDate")
-        userDefaults.set(userSettings.birthPlace, forKey: "birthPlace")
-        userDefaults.set(userSettings.gender, forKey: "gender")
+    }
+    
+    func updateSettings() {
+        DispatchQueue.main.async {
+            self.userDefaults.set(self.userSettings.birthDate, forKey: "birthDate")
+            self.userDefaults.set(self.userSettings.birthPlace, forKey: "birthPlace")
+            self.userDefaults.set(self.userSettings.gender, forKey: "gender")
+        }
     }
     
     @objc private func terminate() { NSApp.terminate(self) }

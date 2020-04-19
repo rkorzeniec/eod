@@ -46,6 +46,7 @@ struct ContentView: View {
     func updateExpectancy() {
         if let appDelegate = NSApplication.shared.delegate as? AppDelegate {
             appDelegate.updateLifeExpectancy()
+            appDelegate.updateSettings()
             appDelegate.togglePopover()
         }
     }
