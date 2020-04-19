@@ -18,7 +18,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     private var popover = NSPopover()
     private var userSettings = Settings()
-    private var timer: Timer?
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         updateUserSettings()
@@ -37,16 +36,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         popover.contentSize = NSSize(width: 200, height: 400)
         popover.contentViewController = NSHostingController(rootView: configureView)
         
-        setTimer()
+        subscribeToDayChange()
     }
 
-    func applicationWillTerminate(_ aNotification: Notification) {
-        timer?.invalidate()
-    }
+    func applicationWillTerminate(_ aNotification: Notification) { }
     
     @objc func updateLifeExpectancy() {
-        let expectancy = calculateLifeExpectancyDays()
-        statusItem.button?.title = "\(expectancy)"
+        DispatchQueue.main.async {
+            let expectancy = self.calculateLifeExpectancyDays()
+            self.statusItem.button?.title = "\(expectancy)"
+        }
 
         userDefaults.set(userSettings.birthDate, forKey: "birthDate")
         userDefaults.set(userSettings.birthPlace, forKey: "birthPlace")
@@ -82,21 +81,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return LifeExpectancyCalculator(expectancy: expectancy, birthDate: userSettings.birthDate).days()
     }
     
-    private func setTimer() {
-        let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: Date())!
-        let dayInSeconds = TimeInterval(24 * 3600)
-        
-        timer?.invalidate()
-        
-        timer = Timer(
-            fireAt: Calendar.current.startOfDay(for: tomorrow),
-            interval: dayInSeconds,
-            target: self,
-            selector: #selector(updateLifeExpectancy),
-            userInfo: nil,
-            repeats: true
+    private func subscribeToDayChange() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector:#selector(updateLifeExpectancy),
+            name:.NSCalendarDayChanged,
+            object:nil
         )
-        RunLoop.main.add(timer!, forMode: .common)
     }
     
     private func showPopover() {
