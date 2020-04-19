@@ -19,7 +19,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private var userSettings = Settings()
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        updateUserSettings()
+        loadUserSettings()
         
         let expectancy = calculateLifeExpectancyDays()
         let configureView = ContentView().environmentObject(userSettings).environmentObject(lifeExpectancies)
@@ -59,8 +59,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         popover.isShown == true ? closePopover() : showPopover()
     }
     
-    private func updateUserSettings() {
     @objc private func terminate() { NSApp.terminate(self) }
+    private func loadUserSettings() {
         if let birthDate = userDefaults.object(forKey: "birthDate") as? Date {
             userSettings.birthDate = birthDate
         }
