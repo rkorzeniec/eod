@@ -55,13 +55,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
-    @objc private func terminate() { NSApp.terminate(self) }
-
     @objc func togglePopover() {
         popover.isShown == true ? closePopover() : showPopover()
     }
     
     private func updateUserSettings() {
+    @objc private func terminate() { NSApp.terminate(self) }
         if let birthDate = userDefaults.object(forKey: "birthDate") as? Date {
             userSettings.birthDate = birthDate
         }
