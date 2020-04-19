@@ -9,6 +9,8 @@
 import SwiftUI
 
 struct ContentView: View {
+    @Environment(\.managedObjectContext) var managedObjectContext
+    
     @EnvironmentObject var settings: Settings
     @EnvironmentObject var lifeExpectancies: LifeExpectancies
     
