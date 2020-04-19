@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19E287" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Country" representedClassName="Country" syncable="YES" codeGenerationType="class">
-        <attribute name="iso" optional="YES" attributeType="String"/>
-        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="iso" attributeType="String"/>
+        <attribute name="name" attributeType="String"/>
         <relationship name="expectancies" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Expectancy" inverseName="country" inverseEntity="Expectancy"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
@@ -12,13 +12,13 @@
         </uniquenessConstraints>
     </entity>
     <entity name="Expectancy" representedClassName="Expectancy" syncable="YES" codeGenerationType="class">
-        <attribute name="gender" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="gender" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="country" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Country" inverseName="expectancies" inverseEntity="Country"/>
         <relationship name="record" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Record" inverseName="expectancies" inverseEntity="Record"/>
     </entity>
     <entity name="Record" representedClassName="Record" syncable="YES" codeGenerationType="class">
-        <attribute name="value" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="year" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="value" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="year" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="expectancies" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Expectancy" inverseName="record" inverseEntity="Expectancy"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
