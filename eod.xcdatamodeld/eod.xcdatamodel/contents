@@ -3,7 +3,6 @@
     <entity name="Country" representedClassName="Country" syncable="YES" codeGenerationType="class">
         <attribute name="iso" attributeType="String"/>
         <attribute name="name" attributeType="String"/>
-        <relationship name="expectancies" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Expectancy" inverseName="country" inverseEntity="Expectancy"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
                 <constraint value="iso"/>
@@ -12,24 +11,18 @@
         </uniquenessConstraints>
     </entity>
     <entity name="Expectancy" representedClassName="Expectancy" syncable="YES" codeGenerationType="class">
-        <attribute name="gender" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="country" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Country" inverseName="expectancies" inverseEntity="Country"/>
-        <relationship name="record" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Record" inverseName="expectancies" inverseEntity="Record"/>
+        <attribute name="gender" attributeType="String"/>
+        <relationship name="country" maxCount="1" deletionRule="Nullify" destinationEntity="Country"/>
+        <relationship name="records" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Record" inverseName="expectancy" inverseEntity="Record"/>
     </entity>
     <entity name="Record" representedClassName="Record" syncable="YES" codeGenerationType="class">
         <attribute name="value" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="year" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="expectancies" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Expectancy" inverseName="record" inverseEntity="Expectancy"/>
-        <uniquenessConstraints>
-            <uniquenessConstraint>
-                <constraint value="year"/>
-                <constraint value="value"/>
-            </uniquenessConstraint>
-        </uniquenessConstraints>
+        <relationship name="expectancy" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Expectancy" inverseName="records" inverseEntity="Expectancy"/>
     </entity>
     <elements>
+        <element name="Country" positionX="0" positionY="45" width="128" height="73"/>
         <element name="Expectancy" positionX="-36" positionY="9" width="128" height="88"/>
-        <element name="Country" positionX="0" positionY="45" width="128" height="88"/>
         <element name="Record" positionX="27" positionY="72" width="128" height="88"/>
     </elements>
 </model>
