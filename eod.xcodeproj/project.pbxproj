@@ -22,6 +22,7 @@
 		BF22800524387A28004FE92C /* eodUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF22800424387A28004FE92C /* eodUITests.swift */; };
 		BF6A2B3A2439D50300224085 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6A2B392439D50300224085 /* Settings.swift */; };
 		BF752039244CC5AE00E30BC3 /* eod.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BF752037244CC5AE00E30BC3 /* eod.xcdatamodeld */; };
+		BF75203B244CC5F900E30BC3 /* DataImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF75203A244CC5F900E30BC3 /* DataImporter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,7 @@
 		BF22800624387A28004FE92C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BF6A2B392439D50300224085 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		BF752038244CC5AE00E30BC3 /* eod.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = eod.xcdatamodel; sourceTree = "<group>"; };
+		BF75203A244CC5F900E30BC3 /* DataImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataImporter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +121,7 @@
 				BF6A2B392439D50300224085 /* Settings.swift */,
 				BF14B7E224444662004A9248 /* LifeExpectancies.swift */,
 				BF14B7E62444C5C9004A9248 /* LifeExpectancyCalculator.swift */,
+				BF75203A244CC5F900E30BC3 /* DataImporter.swift */,
 				BF227FEC24387A28004FE92C /* Main.storyboard */,
 				BF227FEF24387A28004FE92C /* Info.plist */,
 				BF14B7D72442EF7D004A9248 /* Assets.xcassets */,
@@ -298,6 +301,7 @@
 			files = (
 				BF14B7E324444662004A9248 /* LifeExpectancies.swift in Sources */,
 				BF14B7E72444C5C9004A9248 /* LifeExpectancyCalculator.swift in Sources */,
+				BF75203B244CC5F900E30BC3 /* DataImporter.swift in Sources */,
 				BF752039244CC5AE00E30BC3 /* eod.xcdatamodeld in Sources */,
 				BF6A2B3A2439D50300224085 /* Settings.swift in Sources */,
 				BF227FE624387A27004FE92C /* ContentView.swift in Sources */,

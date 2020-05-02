@@ -19,6 +19,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private var userSettings = Settings()
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        importData()
         loadUserSettings()
         
         let expectancy = calculateLifeExpectancyDays()
@@ -63,6 +64,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     @objc private func terminate() { NSApp.terminate(self) }
+    
+    private func importData() {
+        DataImporter(store: self.persistentContainer).importData()
+    }
+    
     private func loadUserSettings() {
         if let birthDate = userDefaults.object(forKey: "birthDate") as? Date {
             userSettings.birthDate = birthDate
