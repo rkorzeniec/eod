@@ -66,7 +66,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @objc private func terminate() { NSApp.terminate(self) }
     
     private func importData() {
-        DataImporter(store: self.persistentContainer).importData()
+        let isDataImported = userDefaults.bool(forKey: "isDataImported")
+        if !isDataImported {
+            DataImporter(store: self.persistentContainer).importData()
+            userDefaults.set(true, forKey: "isDataImported")
+        }
     }
     
     private func loadUserSettings() {
