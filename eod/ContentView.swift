@@ -9,8 +9,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @Environment(\.managedObjectContext) var managedObjectContext
-    
+    @Environment(\.managedObjectContext) var context
     @EnvironmentObject var settings: Settings
     @EnvironmentObject var lifeExpectancies: LifeExpectancies
     

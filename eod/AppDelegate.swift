@@ -22,11 +22,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         importData()
         loadUserSettings()
         
+        guard let context = Optional(persistentContainer.viewContext) else {
+            fatalError("Unable to read managed object context.")
+        }
+
         let expectancy = calculateLifeExpectancyDays()
         let configureView = ContentView()
-            .environment(\.managedObjectContext, persistentContainer.viewContext)
+            .environment(\.managedObjectContext, context)
             .environmentObject(userSettings)
-            .environmentObject(lifeExpectancies)
         
         let menu = NSMenu()
         menu.addItem(withTitle: "Configure", action: #selector(togglePopover), keyEquivalent: "c")
@@ -119,15 +122,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "eod")
-        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+        container.loadPersistentStores { description, error in
             container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
 
             if let error = error {
-                fatalError("Unresolved error \(error)")
+                fatalError("Unable to load persistent stores: \(error)")
             }
-        })
+        }
         return container
     }()
+    
+    func saveContext () {
+        let context = persistentContainer.viewContext
+        if context.hasChanges {
+            do { try context.save() } catch { NSApplication.shared.presentError(error) }
+        }
+    }
 
     // MARK: - Core Data Saving and Undo support
 
