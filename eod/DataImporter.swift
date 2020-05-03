@@ -34,35 +34,34 @@ class DataImporter {
         let context = store.viewContext
         let countryEntity = NSEntityDescription.entity(forEntityName: "Country", in: context)!
         let recordEntity = NSEntityDescription.entity(forEntityName: "Record", in: context)!
-        let expectancyEntity = NSEntityDescription.entity(forEntityName: "Expectancy", in: context)!
         
         do {
             try csv?.enumerateAsDict { dict in
-            
                 guard !self.exludedStates.contains(dict["iso"]!) else { return }
                 
-                var country = self.fetchCountry(context: context, entity: countryEntity, query: dict["iso"]!)
-                if country == nil {
-                    country = self.createCountry(context: context, entity: countryEntity, iso: dict["iso"]!, name: dict["country"]!)
-                }
-                
-                let expectancy = NSManagedObject(entity: expectancyEntity, insertInto: context)
-                
-                expectancy.setValue(dict["gender"]!, forKey: "gender")
-                expectancy.setValue(country, forKey: "country")
+                let country = self.fetchOrCreateCountry(context: context, entity: countryEntity, data: dict)
                 
                 for year in 1960...2018 {
                     guard let yearExpectancy = dict[String(year)] else { continue }
                     guard !yearExpectancy.isEmpty else { continue }
                     
-                    let record = self.createRecord(context: context, entity: recordEntity, year: year, expectancy: Double(yearExpectancy)!)
+                    let record = self.createRecord(context: context, entity: recordEntity, year: year, expectancy: Double(yearExpectancy)!, gender: dict["gender"]!, countryIso: dict["iso"]!)
 
-                    expectancy.setValue(NSSet(object: record), forKey: "records")
+                    country.setValue(NSSet(object: record), forKey: "records")
                 }
                     
-                do { try expectancy.managedObjectContext?.save() } catch { print(error) }
+                do { try country.managedObjectContext?.save() } catch { print(error) }
             }
         } catch { print("Something went wrong!") }
+    }
+    
+    private func fetchOrCreateCountry(context: NSManagedObjectContext, entity: NSEntityDescription, data: [String:String]) -> NSManagedObject {
+        let country = fetchCountry(context: context, entity: entity, query: data["iso"]!)
+        
+        if country != nil { return country! }
+        let newCountry = createCountry(context: context, entity: entity, iso: data["iso"]!, name: data["country"]!)
+        
+        return newCountry
     }
     
     private func fetchCountry(context: NSManagedObjectContext, entity: NSEntityDescription, query: String) -> NSManagedObject? {
@@ -87,10 +86,12 @@ class DataImporter {
         return country
     }
     
-    private func createRecord(context: NSManagedObjectContext, entity: NSEntityDescription, year: Int, expectancy: Double) -> NSManagedObject {
+    private func createRecord(context: NSManagedObjectContext, entity: NSEntityDescription, year: Int, expectancy: Double, gender: String, countryIso: String) -> NSManagedObject {
         let record = NSManagedObject(entity: entity, insertInto: context)
         record.setValue(expectancy, forKey: "value")
         record.setValue(year, forKey: "year")
+        record.setValue(gender, forKey: "gender")
+        record.setValue(countryIso, forKey: "countryIso")
         
         do { try record.managedObjectContext?.save()} catch { print(error) }
         

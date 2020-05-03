@@ -3,6 +3,7 @@
     <entity name="Country" representedClassName="Country" syncable="YES" codeGenerationType="class">
         <attribute name="iso" attributeType="String"/>
         <attribute name="name" attributeType="String"/>
+        <relationship name="records" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Record"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
                 <constraint value="iso"/>
@@ -10,19 +11,14 @@
             </uniquenessConstraint>
         </uniquenessConstraints>
     </entity>
-    <entity name="Expectancy" representedClassName="Expectancy" syncable="YES" codeGenerationType="class">
-        <attribute name="gender" attributeType="String"/>
-        <relationship name="country" maxCount="1" deletionRule="Nullify" destinationEntity="Country"/>
-        <relationship name="records" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Record" inverseName="expectancy" inverseEntity="Record"/>
-    </entity>
     <entity name="Record" representedClassName="Record" syncable="YES" codeGenerationType="class">
+        <attribute name="countryIso" optional="YES" attributeType="String"/>
+        <attribute name="gender" attributeType="String" defaultValueString="male"/>
         <attribute name="value" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="year" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="expectancy" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Expectancy" inverseName="records" inverseEntity="Expectancy"/>
     </entity>
     <elements>
-        <element name="Country" positionX="0" positionY="45" width="128" height="73"/>
-        <element name="Expectancy" positionX="-36" positionY="9" width="128" height="88"/>
-        <element name="Record" positionX="27" positionY="72" width="128" height="88"/>
+        <element name="Country" positionX="0" positionY="45" width="128" height="88"/>
+        <element name="Record" positionX="27" positionY="72" width="128" height="103"/>
     </elements>
 </model>
