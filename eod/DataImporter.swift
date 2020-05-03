@@ -14,6 +14,12 @@ import CoreData
 
 class DataImporter {
     private var csv: CSV?
+    private var exludedStates: [String] = [
+        "CEB", "EAP", "EAR", "EAS", "ECA", "ECS", "EMU", "FCS", "HPC", "IBD", "IBT", "IDA",
+        "IDB", "IDX", "INX", "LAC", "LDC", "LIC", "LMC", "LMY", "LTE", "MEA", "MIC", "MNA",
+        "OED", "OSS", "PRE", "PST", "SSA", "SSF", "SST", "TEA", "TEC", "TLA", "TMN", "TSA",
+        "TSS", "UMC"
+    ]
     
     var store: NSPersistentContainer
     
@@ -32,6 +38,9 @@ class DataImporter {
         
         do {
             try csv?.enumerateAsDict { dict in
+            
+                guard !self.exludedStates.contains(dict["iso"]!) else { return }
+                
                 var country = self.fetchCountry(context: context, entity: countryEntity, query: dict["iso"]!)
                 if country == nil {
                     country = self.createCountry(context: context, entity: countryEntity, iso: dict["iso"]!, name: dict["country"]!)
