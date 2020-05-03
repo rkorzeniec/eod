@@ -33,8 +33,8 @@ struct ContentView: View {
             }
             
             Picker(selection: $settings.birthPlace, label: Text("Birth place:")) {
-                ForEach(0 ..< self.countries.count) {
-                    Text(self.countries[$0].name ?? "Unknown")
+                ForEach(countries, id: \.iso) { country in
+                    Text(country.name ?? "Unknown")
                 }
             }
             
