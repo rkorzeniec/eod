@@ -13,6 +13,11 @@ struct ContentView: View {
     @EnvironmentObject var settings: Settings
     @EnvironmentObject var lifeExpectancies: LifeExpectancies
     
+    @FetchRequest(
+        entity: Country.entity(),
+        sortDescriptors: [NSSortDescriptor(keyPath: \Country.name, ascending: true)]
+    ) var countries: FetchedResults<Country>
+    
     var genders = ["Male", "Female"]
 
     var body: some View {
@@ -28,8 +33,8 @@ struct ContentView: View {
             }
             
             Picker(selection: $settings.birthPlace, label: Text("Birth place:")) {
-                ForEach(0 ..< lifeExpectancies.countries.count) {
-                    Text(self.lifeExpectancies.countries[$0])
+                ForEach(0 ..< self.countries.count) {
+                    Text(self.countries[$0].name ?? "Unknown")
                 }
             }
             
