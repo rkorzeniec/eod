@@ -91,25 +91,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     private func calculateLifeExpectancyDays() -> Int {
-        let birthYear = userSettings.birthYear()
-        let gender = userSettings.genderName()
-        let birthPlace = userSettings.birthPlace ?? "EUU"
+        let expectancy = LifeExpectancy(
+            countryIso: userSettings.birthPlace,
+            year: userSettings.birthYear(),
+            gender: userSettings.genderName(),
+            managedObjectContext: persistentContainer.viewContext
+        ).expectancy()
         
-        let recordRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Record")
-        let predicateIso = NSPredicate(format: "countryIso == %@", birthPlace)
-        let predicateYear = NSPredicate(format: "year == %d", birthYear)
-        let predicateGender = NSPredicate(format: "gender == %@", gender)
-        let compound = NSCompoundPredicate(andPredicateWithSubpredicates: [predicateIso, predicateYear, predicateGender])
-        recordRequest.predicate = compound
-        recordRequest.fetchLimit = 1
-
-        var expectancy: Double?
-        do {
-            let result = try persistentContainer.viewContext.fetch(recordRequest).first as! NSManagedObject
-            expectancy = result.value(forKey: "value") as? Double
-        } catch { print(error) }
+        let expectancyCalculator = LifeExpectancyCalculator(expectancy: expectancy, birthDate: userSettings.birthDate)
   
-        return LifeExpectancyCalculator(expectancy: expectancy ?? 67.7, birthDate: userSettings.birthDate).days()
+        return expectancyCalculator.days()
     }
     
     private func subscribeToDayChange() {
