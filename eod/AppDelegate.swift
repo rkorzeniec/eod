@@ -7,12 +7,12 @@
 //
 
 import SwiftUI
+import CoreData
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
     private let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
-    private let lifeExpectancies = LifeExpectancies()
     private let userDefaults = UserDefaults.standard
 
     private var popover = NSPopover()
@@ -81,7 +81,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             userSettings.birthDate = birthDate
         }
         
-        if let birthPlace = userDefaults.object(forKey: "birthPlace") as? Int {
+        if let birthPlace = userDefaults.object(forKey: "birthPlace") as? String {
             userSettings.birthPlace = birthPlace
         }
         
@@ -91,12 +91,25 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     private func calculateLifeExpectancyDays() -> Int {
-        let birthPlace = lifeExpectancies.country(index: userSettings.birthPlace)
-        let birthYear = String(userSettings.birthYear())
+        let birthYear = userSettings.birthYear()
         let gender = userSettings.genderName()
-        let expectancy = lifeExpectancies.expectancy(country: birthPlace, year: birthYear, gender: gender)
+        let birthPlace = userSettings.birthPlace ?? "EUU"
         
-        return LifeExpectancyCalculator(expectancy: expectancy, birthDate: userSettings.birthDate).days()
+        let recordRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Record")
+        let predicateIso = NSPredicate(format: "countryIso == %@", birthPlace)
+        let predicateYear = NSPredicate(format: "year == %d", birthYear)
+        let predicateGender = NSPredicate(format: "gender == %@", gender)
+        let compound = NSCompoundPredicate(andPredicateWithSubpredicates: [predicateIso, predicateYear, predicateGender])
+        recordRequest.predicate = compound
+        recordRequest.fetchLimit = 1
+
+        var expectancy: Double?
+        do {
+            let result = try persistentContainer.viewContext.fetch(recordRequest).first as! NSManagedObject
+            expectancy = result.value(forKey: "value") as? Double
+        } catch { print(error) }
+  
+        return LifeExpectancyCalculator(expectancy: expectancy ?? 67.7, birthDate: userSettings.birthDate).days()
     }
     
     private func subscribeToDayChange() {

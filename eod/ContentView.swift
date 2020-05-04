@@ -11,7 +11,6 @@ import SwiftUI
 struct ContentView: View {
     @Environment(\.managedObjectContext) var context
     @EnvironmentObject var settings: Settings
-    @EnvironmentObject var lifeExpectancies: LifeExpectancies
     
     @FetchRequest(
         entity: Country.entity(),
@@ -34,7 +33,7 @@ struct ContentView: View {
             
             Picker(selection: $settings.birthPlace, label: Text("Birth place:")) {
                 ForEach(countries, id: \.iso) { country in
-                    Text(country.name ?? "Unknown")
+                    Text(country.name ?? "Unknown").tag(country.iso)
                 }
             }
             

@@ -12,7 +12,6 @@
 		BF14B7DC24433940004A9248 /* LifeExpectancyAtBirthParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF14B7DB24433940004A9248 /* LifeExpectancyAtBirthParserTests.swift */; };
 		BF14B7DE244442F2004A9248 /* life_expectancy_at_birth.csv in Resources */ = {isa = PBXBuildFile; fileRef = BF14B7DD244442F2004A9248 /* life_expectancy_at_birth.csv */; };
 		BF14B7E124444466004A9248 /* SwiftCSV in Frameworks */ = {isa = PBXBuildFile; productRef = BF14B7E024444466004A9248 /* SwiftCSV */; };
-		BF14B7E324444662004A9248 /* LifeExpectancies.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF14B7E224444662004A9248 /* LifeExpectancies.swift */; };
 		BF14B7E72444C5C9004A9248 /* LifeExpectancyCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF14B7E62444C5C9004A9248 /* LifeExpectancyCalculator.swift */; };
 		BF227FE424387A27004FE92C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF227FE324387A27004FE92C /* AppDelegate.swift */; };
 		BF227FE624387A27004FE92C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF227FE524387A27004FE92C /* ContentView.swift */; };
@@ -47,7 +46,6 @@
 		BF14B7D924432AEA004A9248 /* SettingsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTests.swift; sourceTree = "<group>"; };
 		BF14B7DB24433940004A9248 /* LifeExpectancyAtBirthParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeExpectancyAtBirthParserTests.swift; sourceTree = "<group>"; };
 		BF14B7DD244442F2004A9248 /* life_expectancy_at_birth.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = life_expectancy_at_birth.csv; sourceTree = "<group>"; };
-		BF14B7E224444662004A9248 /* LifeExpectancies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeExpectancies.swift; sourceTree = "<group>"; };
 		BF14B7E62444C5C9004A9248 /* LifeExpectancyCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeExpectancyCalculator.swift; sourceTree = "<group>"; };
 		BF227FE024387A27004FE92C /* eod.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = eod.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF227FE324387A27004FE92C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -119,7 +117,6 @@
 				BF227FE324387A27004FE92C /* AppDelegate.swift */,
 				BF227FE524387A27004FE92C /* ContentView.swift */,
 				BF6A2B392439D50300224085 /* Settings.swift */,
-				BF14B7E224444662004A9248 /* LifeExpectancies.swift */,
 				BF14B7E62444C5C9004A9248 /* LifeExpectancyCalculator.swift */,
 				BF75203A244CC5F900E30BC3 /* DataImporter.swift */,
 				BF227FEC24387A28004FE92C /* Main.storyboard */,
@@ -299,7 +296,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BF14B7E324444662004A9248 /* LifeExpectancies.swift in Sources */,
 				BF14B7E72444C5C9004A9248 /* LifeExpectancyCalculator.swift in Sources */,
 				BF75203B244CC5F900E30BC3 /* DataImporter.swift in Sources */,
 				BF752039244CC5AE00E30BC3 /* eod.xcdatamodeld in Sources */,
