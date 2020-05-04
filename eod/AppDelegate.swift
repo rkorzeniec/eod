@@ -72,13 +72,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let expectancy = calculateLifeExpectancyDays()
 
         statusItem.menu = menu
-        statusItem.button?.appearsDisabled = true
         statusItem.button?.title = "\(expectancy)"
     }
     
     private func importData() {
         let isDataImported = userDefaults.bool(forKey: "isDataImported")
         if !isDataImported {
+            self.statusItem.button?.appearsDisabled = true
             DispatchQueue.main.async { [weak self] in
                 DataImporter(store: self!.persistentContainer).importData()
                 self?.userDefaults.set(true, forKey: "isDataImported")
