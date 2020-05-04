@@ -14,30 +14,24 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     private let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
     private let userDefaults = UserDefaults.standard
+    private let menu = NSMenu()
 
     private var popover = NSPopover()
     private var userSettings = Settings()
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        importData()
         loadUserSettings()
+        setupMenu()
+        setupStatusBar()
+        importData()
         
         guard let context = Optional(persistentContainer.viewContext) else {
             fatalError("Unable to read managed object context.")
         }
 
-        let expectancy = calculateLifeExpectancyDays()
         let configureView = ContentView()
             .environment(\.managedObjectContext, context)
             .environmentObject(userSettings)
-        
-        let menu = NSMenu()
-        menu.addItem(withTitle: "Configure", action: #selector(togglePopover), keyEquivalent: "c")
-        menu.addItem(.separator())
-        menu.addItem(withTitle: "Quit", action: #selector(terminate), keyEquivalent: "q")
-        
-        statusItem.menu = menu
-        statusItem.button?.title = "\(expectancy)"
         
         popover.contentSize = NSSize(width: 200, height: 400)
         popover.contentViewController = NSHostingController(rootView: configureView)
@@ -68,11 +62,28 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @objc private func terminate() { NSApp.terminate(self) }
     
+    private func setupMenu() {
+        menu.addItem(withTitle: "Configure", action: #selector(togglePopover), keyEquivalent: "c")
+        menu.addItem(.separator())
+        menu.addItem(withTitle: "Quit", action: #selector(terminate), keyEquivalent: "q")
+    }
+    
+    private func setupStatusBar() {
+        let expectancy = calculateLifeExpectancyDays()
+
+        statusItem.menu = menu
+        statusItem.button?.appearsDisabled = true
+        statusItem.button?.title = "\(expectancy)"
+    }
+    
     private func importData() {
         let isDataImported = userDefaults.bool(forKey: "isDataImported")
         if !isDataImported {
-            DataImporter(store: self.persistentContainer).importData()
-            userDefaults.set(true, forKey: "isDataImported")
+            DispatchQueue.main.async { [weak self] in
+                DataImporter(store: self!.persistentContainer).importData()
+                self?.userDefaults.set(true, forKey: "isDataImported")
+                self?.statusItem.button?.appearsDisabled = false
+            }
         }
     }
     
