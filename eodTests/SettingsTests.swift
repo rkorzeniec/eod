@@ -11,22 +11,55 @@ import XCTest
 
 
 class SettingsTests: XCTestCase {
-    override func setUpWithError() throws {}
-
+    var testSettings: Settings!
+    
+    override func setUpWithError() throws {
+        testSettings = Settings()
+    }
+    
     override func tearDownWithError() throws {}
     
-    func testInitSettings() {
-        let testSettings = Settings()
-        
+    func testInitBirthDate() {
         XCTAssertNotNil(testSettings.birthDate)
         XCTAssertTrue(testSettings.birthDate.timeIntervalSinceNow <= 100)
-        XCTAssertLessThanOrEqual(testSettings.birthDate.timeIntervalSince1970, Date().timeIntervalSince1970)
+        XCTAssertLessThanOrEqual(
+            testSettings.birthDate.timeIntervalSince1970,
+            Date().timeIntervalSince1970
+        )
+    }
+    
+    func testInitBirthPlace() {
+        XCTAssertNil(testSettings.birthPlace)
+    }
+    
+    func testCustomBirthPlace() {
+        testSettings.birthPlace = "GBR"
+        XCTAssertEqual(testSettings.birthPlace, "GBR")
+    }
+    
+    func testInitGender() {
+        XCTAssertEqual(testSettings.gender, 0)
     }
 
-    func testBirthYear() {
-        let testSettings = Settings()
-        
-        XCTAssertEqual(testSettings.birthYear(), Calendar(identifier: .iso8601).component(.year, from: Date()))
+    func testDefaultBirthYear() {
+        XCTAssertEqual(
+            testSettings.birthYear(),
+            Calendar(identifier: .iso8601).component(.year, from: Date())
+        )
+    }
+    
+    func testCustomBirthYear() {
+        testSettings.birthDate = Date(timeIntervalSinceReferenceDate: 0)
+        XCTAssertEqual(testSettings.birthYear(), 2001)
+    }
+    
+    func testDefaultGenderName() {
+        XCTAssertEqual(testSettings.genderName(), "male")
+    }
+    
+    func testCustomGenderName() {
+        testSettings.gender = 1
+        XCTAssertEqual(testSettings.genderName(), "female")
     }
 
     func testPerformanceExample() throws {
