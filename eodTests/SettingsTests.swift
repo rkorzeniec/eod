@@ -64,7 +64,6 @@ class SettingsTests: XCTestCase {
 
     func testPerformanceExample() throws {
         self.measure {
-            let testSettings = Settings()
             XCTAssertEqual(testSettings.birthYear(), Calendar(identifier: .iso8601).component(.year, from: Date()))
         }
     }
