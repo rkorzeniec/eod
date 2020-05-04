@@ -18,13 +18,22 @@ class LifeExpectancyCalculator {
     }
     
     func days() -> Int {
-        let expectancyInSeconds = expectancy * 365.25 * 24 * 3600
-        let expectancyDate = Date(timeInterval: TimeInterval(expectancyInSeconds), since: birthDate)
+        let expectancyDate = Date(timeInterval: TimeInterval(expectancyInSeconds()), since: birthDate)
+        let days = calculateDiffBetweenDates(date1: Date(), date2: expectancyDate)
         
+        return days
+    }
+    
+    private func expectancyInSeconds() -> Double {
+        return expectancy * 365.25 * 24 * 3600
+    }
+    
+    private func calculateDiffBetweenDates(date1: Date, date2: Date) -> Int {
         let calendar = Calendar.current
-        let date1 = calendar.startOfDay(for: Date())
-        let date2 = calendar.startOfDay(for: expectancyDate)
+        let calendarDate1 = calendar.startOfDay(for: date1)
+        let calendarDate2 = calendar.startOfDay(for: date2)
+        let dateDiff = calendar.dateComponents([.day], from: calendarDate1, to: calendarDate2)
         
-        return calendar.dateComponents([.day], from: date1, to: date2).day!
+        return dateDiff.day!
     }
 }
